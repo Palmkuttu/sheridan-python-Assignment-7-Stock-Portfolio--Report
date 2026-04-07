@@ -17,7 +17,6 @@ def read_portfolio(filename):
 
     return result
 
-
 def save_portfolio(data, filename):
     with open(filename, 'w', newline='') as file:
         writer = csv.writer(file)

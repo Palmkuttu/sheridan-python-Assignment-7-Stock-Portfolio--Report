@@ -49,45 +49,45 @@ def get_market_data(symbols):
 
     result = {}
     for item in data:
-        result[item["symbol"]] = int(item["price"])  # force int
+        result[item["symbol"]] = item["price"]
 
     return result
 
 
 # ---------------------------
-# CALCULATIONS
+# CALCULATE METRICS (REQUIRED)
 # ---------------------------
-def calculate_portfolio_value(portfolio, market_data):
-    total = 0
-
-    for stock in portfolio:
-        symbol = stock["symbol"]
-        units = int(stock["units"])
-        price = int(market_data[symbol])
-
-        total += units * price
-
-    return int(total)
-
-
-def calculate_profit_loss(portfolio, market_data):
-    total_cost = 0
-    total_value = 0
+def calculate_metrics(portfolio, prices):
+    results = []
 
     for stock in portfolio:
         symbol = stock["symbol"]
         units = int(stock["units"])
         cost = float(stock["cost"])
-        price = int(market_data[symbol])
+        price = prices[symbol]
 
-        total_cost += units * cost
-        total_value += units * price
+        book_value = units * cost
+        market_value = units * price
+        gain_loss = market_value - book_value
 
-    return int(total_value - total_cost)
+        if book_value != 0:
+            change = gain_loss / book_value
+        else:
+            change = 0
+
+        results.append({
+            "symbol": symbol,
+            "book_value": book_value,
+            "market_value": market_value,
+            "gain_loss": gain_loss,
+            "change": change
+        })
+
+    return results
 
 
 # ---------------------------
-# MAIN (REQUIRED FOR PACKAGE)
+# MAIN
 # ---------------------------
 def main():
     import argparse
@@ -100,13 +100,11 @@ def main():
     portfolio = read_portfolio(args.file)
     symbols = [stock["symbol"] for stock in portfolio]
 
-    market_data = get_market_data(symbols)
+    prices = get_market_data(symbols)
+    metrics = calculate_metrics(portfolio, prices)
 
-    total_value = calculate_portfolio_value(portfolio, market_data)
-    profit_loss = calculate_profit_loss(portfolio, market_data)
-
-    print(f"Total Value: {total_value}")
-    print(f"Profit/Loss: {profit_loss}")
+    for item in metrics:
+        print(item)
 
 
 if __name__ == "__main__":

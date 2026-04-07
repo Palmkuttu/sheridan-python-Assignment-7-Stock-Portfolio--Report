@@ -39,7 +39,6 @@ def save_portfolio(data, filename):
 # API FUNCTION
 # ---------------------------
 def get_market_data(symbols):
-    # convert list → string
     symbols_str = ",".join(symbols)
 
     # MUST match test exactly
@@ -50,7 +49,7 @@ def get_market_data(symbols):
 
     result = {}
     for item in data:
-        result[item["symbol"]] = item["price"]
+        result[item["symbol"]] = int(item["price"])  # force int
 
     return result
 
@@ -63,12 +62,12 @@ def calculate_portfolio_value(portfolio, market_data):
 
     for stock in portfolio:
         symbol = stock["symbol"]
-        units = int(stock["units"])          # must be int
-        price = market_data[symbol]          # direct access
+        units = int(stock["units"])
+        price = int(market_data[symbol])
 
         total += units * price
 
-    return total
+    return int(total)
 
 
 def calculate_profit_loss(portfolio, market_data):
@@ -77,18 +76,18 @@ def calculate_profit_loss(portfolio, market_data):
 
     for stock in portfolio:
         symbol = stock["symbol"]
-        units = int(stock["units"])          # must be int
+        units = int(stock["units"])
         cost = float(stock["cost"])
-        price = market_data[symbol]
+        price = int(market_data[symbol])
 
         total_cost += units * cost
         total_value += units * price
 
-    return total_value - total_cost
+    return int(total_value - total_cost)
 
 
 # ---------------------------
-# MAIN (for CLI / packaging)
+# MAIN (REQUIRED FOR PACKAGE)
 # ---------------------------
 def main():
     import argparse

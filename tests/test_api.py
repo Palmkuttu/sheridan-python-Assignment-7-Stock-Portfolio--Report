@@ -12,7 +12,7 @@ def test_get_market_data(requests_mock):
         {"symbol": "AAPL", "price": 200}
     ]
 
-    # IMPORTANT: must match your function URL exactly
+    # MUST match your function URL exactly
     url = "https://fakeapi.com/prices?symbols=SNAP,AAPL"
 
     # Mock the request

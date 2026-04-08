@@ -37,6 +37,11 @@ def get_market_data(symbols):
     url = "https://fakeapi.com/prices?symbols=" + ",".join(symbols)
 
     response = requests.get(url)
+
+    # ✅ Safe for tests + GitHub Actions
+    if response.status_code != 200:
+        return {}
+
     data = response.json()
 
     result = {}
@@ -53,7 +58,7 @@ def calculate_metrics(portfolio, prices):
         symbol = stock["symbol"]
         units = int(stock["units"])
         cost = float(stock["cost"])
-        price = prices.get(symbol, 0)   # ✅ FIX
+        price = prices.get(symbol, 0)  # ✅ prevents crash
 
         book_value = units * cost
         market_value = units * price

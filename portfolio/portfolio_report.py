@@ -39,13 +39,7 @@ def get_market_data(symbols):
 
     return result
 
-if __name__ == "__main__":
-    main()
 
-
-# ---------------------------
-# CALCULATE METRICS (FIXED)
-# ---------------------------
 def calculate_metrics(portfolio, prices):
     results = []
 
@@ -71,10 +65,6 @@ def calculate_metrics(portfolio, prices):
 
     return results
 
-
-# ---------------------------
-# MAIN (optional but safe)
-# ---------------------------
 def main():
     import argparse
 

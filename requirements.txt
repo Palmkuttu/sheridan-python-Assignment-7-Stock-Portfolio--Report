@@ -1,9 +1,3 @@
-pytest
-pylint
-certifi
-charset-normalizer
-idna
 requests
+pytest
 requests-mock
-six
-urllib3

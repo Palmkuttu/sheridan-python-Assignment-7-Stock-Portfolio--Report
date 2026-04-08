@@ -1,4 +1,5 @@
 import csv
+import requests
 from collections import OrderedDict
 
 
@@ -33,16 +34,17 @@ def save_portfolio(data, filename):
             writer.writerow(row)
 
 
-# 🔥 THIS IS THE FIX
+# 🔥 THIS IS THE REAL FIX
 def get_market_data(symbols):
-    """
-    Fake market data for tests
-    """
-    data = {}
+    url = "https://fakeapi.com/prices?symbols=" + ",".join(symbols)
 
-    for symbol in symbols:
-        data[symbol] = {
-            "latest_price": 100.0
-        }
+    response = requests.get(url)
 
-    return data
+    data = response.json()
+
+    result = {}
+
+    for item in data:
+        result[item["symbol"]] = item["price"]
+
+    return result

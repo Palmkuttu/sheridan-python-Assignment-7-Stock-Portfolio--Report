@@ -3,6 +3,9 @@ from collections import OrderedDict
 
 
 def read_portfolio(filename):
+    """
+    Read portfolio CSV file and return list of OrderedDict
+    """
     data = []
 
     with open(filename, "r") as file:
@@ -20,6 +23,9 @@ def read_portfolio(filename):
 
 
 def save_portfolio(data, filename):
+    """
+    Save portfolio data to CSV file
+    """
     fieldnames = [
         "symbol", "units", "cost", "latest_price",
         "book_value", "market_value", "gain_loss", "change"
@@ -33,6 +39,9 @@ def save_portfolio(data, filename):
             writer.writerow(row)
 
 
-# 🔥 REQUIRED FOR TESTS (DO NOT DELETE)
+# ⚠️ REQUIRED FOR test_api.py (DO NOT DELETE)
 def get_market_data(symbols):
+    """
+    Dummy function for tests (no real API call)
+    """
     return {}

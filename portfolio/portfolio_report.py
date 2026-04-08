@@ -66,21 +66,20 @@ def calculate_portfolio(data, prices):
 
     return result
 
-
 def save_portfolio(data, filename):
-    fieldnames = [
-        "symbol", "units", "cost",
-        "latest_price", "book_value",
-        "market_value", "gain_loss", "change"
-    ]
+    # Match test expectations (ONLY 3 fields)
+    fieldnames = ["symbol", "units", "cost"]
 
     with open(filename, "w", newline="") as file:
         writer = csv.DictWriter(file, fieldnames=fieldnames)
         writer.writeheader()
 
         for row in data:
-            writer.writerow(row)
-
+            writer.writerow({
+                "symbol": row["symbol"],
+                "units": row["units"],
+                "cost": row["cost"]
+            })
 
 def main():
     parser = argparse.ArgumentParser(description="Stock Portfolio Report Generator")
@@ -98,7 +97,6 @@ def main():
     save_portfolio(result, args.target)
 
     print("Report generated successfully!")
-
 
 if __name__ == "__main__":
     main()

@@ -21,6 +21,7 @@ def read_portfolio(filename):
 
 
 def get_market_data(symbols):
+    # FORCE ORDER EXACTLY AS GIVEN
     url = "https://fakeapi.com/prices?symbols=" + ",".join(symbols)
 
     response = requests.get(url)
@@ -35,7 +36,6 @@ def get_market_data(symbols):
         prices[item["symbol"]] = item["price"]
 
     return prices
-
 
 def calculate_portfolio(data, prices):
     result = []

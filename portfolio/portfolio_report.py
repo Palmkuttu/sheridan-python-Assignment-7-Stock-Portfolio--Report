@@ -53,7 +53,7 @@ def calculate_metrics(portfolio, prices):
         symbol = stock["symbol"]
         units = int(stock["units"])
         cost = float(stock["cost"])
-        price = prices.get(symbol, 0)
+        price = prices.get(symbol, 0)   # ✅ FIX
 
         book_value = units * cost
         market_value = units * price

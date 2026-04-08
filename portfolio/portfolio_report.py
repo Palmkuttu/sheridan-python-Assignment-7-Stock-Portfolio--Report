@@ -3,7 +3,6 @@ import requests
 import argparse
 from collections import OrderedDict
 
-
 def read_portfolio(filename):
     data = []
 
@@ -18,7 +17,6 @@ def read_portfolio(filename):
             data.append(ordered)
 
     return data
-
 
 def get_market_data(symbols):
     # FORCE ORDER EXACTLY AS GIVEN

@@ -34,7 +34,7 @@ def save_portfolio(data, filename):
             writer.writerow(row)
 
 
-# 🔥 THIS IS THE REAL FIX
+# 🔥 FINAL CORRECT VERSION
 def get_market_data(symbols):
     url = "https://fakeapi.com/prices?symbols=" + ",".join(symbols)
 
@@ -45,6 +45,6 @@ def get_market_data(symbols):
     result = {}
 
     for item in data:
-        result[item["symbol"]] = item["price"]
+        result[item["symbol"]] = item["price"]   # ✅ MUST be EXACT
 
     return result

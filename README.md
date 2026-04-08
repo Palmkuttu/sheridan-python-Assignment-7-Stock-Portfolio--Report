@@ -1,105 +1,110 @@
 # Stock Portfolio Performance Report Generator
 
-This project generates a performance report for a stock portfolio using live market data.
+## Description
+
+This program reads a CSV file containing stock portfolio data and generates a performance report.
+
+It calculates:
+- Latest stock price
+- Book value
+- Market value
+- Gain or loss
+- Percentage change
 
 ---
 
-## 📌 Description
+## Features
 
-The program reads a CSV file containing stock holdings and generates a report showing:
-
-* Latest stock price
-* Book value
-* Market value
-* Gain or loss
-* Percentage change
+- Reads portfolio data from a CSV file
+- Fetches latest stock prices using an API
+- Calculates portfolio performance
+- Generates a new CSV report
+- Includes unit tests for I/O and API
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
-```
-portfolio_project/
-│
-├── portfolio/
-│   ├── __init__.py
-│   ├── portfolio_report.py
-│
-├── tests/
-│   ├── __init__.py
-│   ├── test_io.py
-│   ├── conftest.py
-│
-├── README.md
-├── requirements.txt
-├── LICENSE
-├── setup.py
-```
+portfolio/
+    portfolio_report.py
+    __init__.py
+
+tests/
+    test_io.py
+    test_api.py
+    conftest.py
+    __init__.py
+
+README.md
+requirements.txt
+setup.py
+LICENSE
+.gitignore
 
 ---
 
-## 📥 Input CSV Example
+## Input CSV Example
 
-```
-symbol,units,cost
-AAPL,100,154.23
-AMZN,50,1223.43
-```
+symbol,units,cost  
+AAPL,100,154.23  
+AMZN,50,1223.43  
 
 ---
 
-## 📤 Output CSV Example
+## Output CSV
 
-```
-symbol,units,cost,latest_price,book_value,market_value,gain_loss,change
-AAPL,100,154.23,170.00,15423,17000,1577,0.10
-```
+The generated report includes:
+
+- symbol  
+- units  
+- cost  
+- latest_price  
+- book_value  
+- market_value  
+- gain_loss  
+- change  
 
 ---
 
-## ⚙️ Installation
+## Requirements
+
+- Python 3
+- requests
 
 Install dependencies:
 
-```
 pip install -r requirements.txt
-```
-
-Install the package:
-
-```
-pip install -e .
-```
 
 ---
 
-## ▶️ Usage
+## How to Run
 
-```
-portfolio_report --source portfolio.csv --target report.csv --apikey YOUR_API_KEY
-```
+After installing the package:
+
+portfolio_report --source input.csv --target output.csv
 
 ---
 
-## 🧪 Testing
+## Testing
 
-Run tests:
+Run tests using:
 
-```
 pytest -v
-```
+
+Tests included:
+- File read/write operations (`test_io.py`)
+- API requests using mock (`test_api.py`)
 
 ---
 
-## 📦 Requirements
+## Packaging
 
-* Python 3.x
-* requests
-* pytest
-* requests-mock
+Install the project locally:
+
+pip install .
 
 ---
 
-## 📄 License
+## License
 
 MIT License

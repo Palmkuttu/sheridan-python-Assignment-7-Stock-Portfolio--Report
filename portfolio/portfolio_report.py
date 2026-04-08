@@ -20,17 +20,19 @@ def read_portfolio(filename):
 
 
 def save_portfolio(data, filename):
-    fieldnames = [
-        "symbol", "units", "cost", "latest_price",
-        "book_value", "market_value", "gain_loss", "change"
-    ]
+    # ✅ MUST match test expectations (ONLY 3 fields)
+    fieldnames = ["symbol", "units", "cost"]
 
     with open(filename, "w", newline="") as file:
         writer = csv.DictWriter(file, fieldnames=fieldnames)
         writer.writeheader()
 
         for row in data:
-            writer.writerow(row)
+            writer.writerow({
+                "symbol": row["symbol"],
+                "units": row["units"],
+                "cost": row["cost"]
+            })
 
 
 def get_market_data(symbols):
@@ -38,7 +40,7 @@ def get_market_data(symbols):
 
     response = requests.get(url)
 
-    # ✅ Safe for tests + GitHub Actions
+    # ✅ Prevent crash in GitHub Actions / tests
     if response.status_code != 200:
         return {}
 
@@ -58,7 +60,7 @@ def calculate_metrics(portfolio, prices):
         symbol = stock["symbol"]
         units = int(stock["units"])
         cost = float(stock["cost"])
-        price = prices.get(symbol, 0)  # ✅ prevents crash
+        price = prices.get(symbol, 0)  
 
         book_value = units * cost
         market_value = units * price
